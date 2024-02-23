@@ -277,7 +277,7 @@ namespace Calc24
 
             public static IEnumerable<CalcItem> All(CalcItem first, CalcItem second)
             {
-                List<CalcItem> list = [];
+                List<CalcItem> list = new();
 
                 if (FormulaBuilder.NoOptimization == false && first is CalcOPItem && second is CalcOPItem && first.seq > second.seq)
                 {
@@ -318,7 +318,7 @@ namespace Calc24
             }
 
             int l = items.Count;
-            HashSet<double> iSet = [], jSet = [];
+            HashSet<double> iSet = new(), jSet = new();
             for (int i = 0; i < l; i++)
             {
                 if (!FormulaBuilder.NoOptimization)
