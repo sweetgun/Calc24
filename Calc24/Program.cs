@@ -7,6 +7,8 @@ Console.InputEncoding = System.Text.Encoding.UTF8;
 //Console.OutputEncoding = System.Text.Encoding.Unicode;
 
 Stopwatch sw = new();
+int target = 24;
+System.Text.RegularExpressions.Regex regex = new(@"[:=?,]");
 
 while(true)
 {
@@ -15,6 +17,21 @@ while(true)
     if (s == "quit" || s == "exit" || s == "bye")
     {
         break;
+    }
+
+    if (regex.IsMatch(s))
+    {
+        var items = regex.Split(s);
+        if (items.Length!=2)
+        {
+            Console.WriteLine("输入格式：[24=]1 2 3 4");
+            continue;
+        }
+        if (!int.TryParse(items[0], out target) || target <= 0)
+        {
+            target = 24;
+        }
+        s = items[1];
     }
 
     var numItems = s.Trim().Split()
@@ -29,36 +46,28 @@ while(true)
     if (numItems.Count() < 3)
     {
         numItems = Calc24.FormulaBuilder.GetFourNumbers(numItems);
-        Console.WriteLine(string.Join(' ', numItems));
+        Console.WriteLine("{0} = {1}", target, string.Join(' ', numItems));
+        Console.WriteLine();
     }
 
     sw.Start();
 
     int c = 0, t = 0;
-    //Calc24.NoOptimization = true;
+    //Calc24.FormulaBuilder.NoOptimization = true;
     Calc24.FormulaBuilder.Execute(numItems, item => {
         t++;
-        if ((int)((item.Value + 0.0005) * 1000) == 24000)
+        if ((int)((item.Value + 0.0005) * 1000) == target*1000)
         {
-            Console.WriteLine("[{0,4}] 24 = {1}", ++c, item);
+            Console.WriteLine("[{0,4}] {2} = {1}", ++c, item, target);
         }
         return true;
     });
 
     if (c == 0)
-        Console.WriteLine(":( 算不出24");
+        Console.WriteLine(":( 算不出 " + target);
     
     sw.Stop();
     Console.WriteLine("共计算 {0} 次，成功 {1} 次，耗时 {2}", t, c, sw);
-    
-    /*
-    int count = 0;
-    Perm.Execute(s.Split(), items=>
-    {
-        Console.WriteLine("{0,6} [{1}]", ++count, string.Join(", ", items.Cast<string>())); 
-        return true;
-    });
-    */
 }
 
 Console.WriteLine("Finished");
