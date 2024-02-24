@@ -67,7 +67,7 @@ while(true)
         Console.WriteLine(":( 算不出 " + target);
     
     sw.Stop();
-    Console.WriteLine("共计算 {0} 次，成功 {1} 次，耗时 {2}", t, c, sw);
+    Console.WriteLine("共计算 {0} 次，成功 {1} 次，耗时 {2}", t, c, sw.Elapsed);
 }
 
 Console.WriteLine("Finished");
