@@ -12,4 +12,16 @@ public struct RationalNumber
     /// 分母
     /// </summary>
     public int Denominator;
+
+    public RationalNumber(int value)
+    {
+        Numerator = value;
+        Denominator = 1;
+    }
+
+    public RationalNumber(RationalNumber number)
+    {
+        Numerator = number.Numerator;
+        Denominator = number.Denominator;
+    }
 }
