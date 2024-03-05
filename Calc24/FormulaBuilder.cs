@@ -216,12 +216,12 @@ namespace Calc24
                 if (second.Level == 1) return false;
                 // 先加后减
                 if (first is CalcMinus) return false;
-                // 从小加大
-                if (first > second)
+                // 从大加小
+                if (first < second)
                 {
                     if (first is not CalcPlus item)
                         return false;
-                    else if (item.second > second)
+                    else if (item.second < second)
                         return false;
                 }
 
@@ -252,12 +252,12 @@ namespace Calc24
                 if (second.Level == 2) return false;
                 // 先乘后除
                 if (first is CalcDivide) return false;
-                // 从小到大
-                if (first > second)
+                // 从大到小
+                if (first < second)
                 {
                     if (first is not CalcMultiply item)
                         return false;
-                    else if (item.second > second)
+                    else if (item.second < second)
                         return false;
                 }
 

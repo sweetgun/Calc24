@@ -42,6 +42,10 @@ while(true)
     {
         return int.Parse(x);
     });
+    if (numItems.Count() == 1 && numItems.First() > 100)
+    {
+        numItems = numItems.First().ToString().ToCharArray().Select(c=>c-'0');
+    }
 
     if (numItems.Count() < 3)
     {
